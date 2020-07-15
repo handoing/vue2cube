@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
+const path = require('path');
 
-const VUE_TEMPLATE = fs.readFileSync('./default.vue', 'utf-8');
+const VUE_TEMPLATE = fs.readFileSync(path.resolve(__dirname, './default.vue'), 'utf-8');
 
 const TYPE_TO_FILENAME = {
   'template': 'cube.tpl',
