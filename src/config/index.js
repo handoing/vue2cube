@@ -1,23 +1,6 @@
-const VUE_TEMPLATE = `
-<template>
-  <div class="box">
-    <p>{{name}}</p>
-    <input v-model="name" />
-  </div>
-</template>
+const fs = require('fs-extra');
 
-<script>
-export default {
-  data: {
-    name: 'vue-cube'
-  },
-  onReady() {}
-};
-</script>
-
-<style>
-</style>
-`
+const VUE_TEMPLATE = fs.readFileSync('./default.vue', 'utf-8');
 
 const TYPE_TO_FILENAME = {
   'template': 'cube.tpl',
