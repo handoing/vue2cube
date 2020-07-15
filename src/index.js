@@ -56,7 +56,7 @@ class VueCube {
   }
 
   rebuild() {
-    this.build().then(this.output)
+    this.build().then(() => this.output())
   }
 
   _isVueFile(filePath) {
