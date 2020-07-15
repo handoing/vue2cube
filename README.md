@@ -13,6 +13,7 @@ vue2cube
 安装
 ------------
 
+    npm init -y
     npm install https://github.com/handoing/vue2cube
 
 使用
@@ -20,15 +21,17 @@ vue2cube
 可在cube根目录下，创建`run.js`，通过require方式引入vue2cube。
 例如：
 ```js
-const VueCube = require('../src');
+const VueCube = require('vue2cube');
 
 const vueCube = new VueCube({
-  entry: './cube.vue',
+  entry: './cube.vue', // entry指定的文件存在，使用该文件，不存在时，会生成名为cube.vue的默认模板
   output: './src'
 })
 
 vueCube.auto();
 ```
+
+执行`node run.js`。
 
 参数
 ------------
