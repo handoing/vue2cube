@@ -10,7 +10,7 @@ class Watch {
     chokidar
       .watch([ path ])
       .on('change', (_path) => {
-        context.rebuild();
+        context.rebuild.call(context);
       })
       .on('ready', () => {})
       .on('error', () => {});
