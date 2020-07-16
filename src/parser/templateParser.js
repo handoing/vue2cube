@@ -13,14 +13,21 @@ const attrTransformMap = {
       return `{{${str}}}`
     }
   },
+  'v-html': {
+    key: 'c-html',
+    value: function(str) {
+      return `{{${str}}}`
+    }
+  },
   'v-for': {
     handle: function(node, value) {
       const each = value.split(' in ');
       const [ item, index ] = each[0].replace(/\(/, '').replace(/\)/, '').split(',');
+      const key = node.attribs[':key'] || node.attribs['v-bind:key']
       const target = each[1];
       const start = {
         type: 'text',
-        data: `\n{{#list ${target.trim()} as ${item.trim()} by ${index.trim()}}}\n`
+        data: `\n{{#list ${target.trim()} as ${item.trim()}${key ? ` by ${key}` : ''}}}\n`
       }
       const end = {
         type: 'text',
@@ -44,6 +51,23 @@ const attrTransformMap = {
       DomUtils.append(node, end)
     }
   },
+  'v-else-if': {
+    handle: function(node, value) {
+      const start = {
+        type: 'text',
+        data: `\n{{#elseif ${value}}}\n`
+      }
+      const end = {
+        type: 'text',
+        data: `\n{{/if}}\n`
+      }
+      if (node.prev.prev.data === end.data) {
+        DomUtils.removeElement(node.prev.prev)
+      }
+      DomUtils.prepend(node, start)
+      DomUtils.append(node, end)
+    }
+  },
   'v-else': {
     handle: function(node, value) {
       const start = {
@@ -59,6 +83,16 @@ const attrTransformMap = {
       }
       DomUtils.prepend(node, start)
       DomUtils.append(node, end)
+    }
+  },
+  'v-text': {
+    handle: function(node, value) {
+      node.children = []
+      DomUtils.appendChild(node, {
+        type: 'text',
+        data: `{{${value}}}`
+      })
+      console.log(node)
     }
   }
 }
@@ -124,15 +158,33 @@ class TemplateParser {
     }, '');
   }
   attrTransformHandle(attrName, node, attrs) {
-    if (/^:.*$/.test(attrName)) {
-      const name = attrName.slice(1)
-      if (name !== 'key') {
-        const [ value, filterExp ] = node.attribs[attrName].split('|');
-        let suffix = this.getFilterExpSuffix(filterExp);
-        attrs[name] = `{{${value}${suffix}}}`
+    const matchBind = attrName.match(/^(v-bind:|:).*$/)
+    if (matchBind) {
+      const name = attrName.slice(matchBind[1].length)
+      if (name === 'key') {
+        return
       }
+      if (name === 'class' || name === 'style') {
+        attrs[`c-${name}`] = node.attribs[attrName];
+        return
+      }
+      const [ value, ...filterExpList ] = node.attribs[attrName].split('|');
+      const filter = filterExpList.reduce((total, filterExp) => {
+        let suffix = this.getFilterExpSuffix(filterExp.trim());
+        return total += suffix
+      }, '')
+      attrs[name] = `{{${value}${filter}}}`
       return;
     }
+
+    const matchOn = attrName.match(/^(v-on:|@).*$/)
+    if (matchOn) {
+      const name = attrName.slice(matchOn[1].length)
+      const value = node.attribs[attrName];
+      attrs[`on-${name}`] = `{{${value}}}`
+      return;
+    }
+
 
     const target = attrTransformMap[attrName]
     this.setAttributes(target, attrName, node, attrs)

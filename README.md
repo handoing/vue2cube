@@ -134,19 +134,27 @@ vueCube.build().then((res) => {
 #### 指令
 - [x] v-show
 - [x] v-model
+- [x] v-text
+- [x] v-html
 - [x] v-for
 - [x] v-if
 - [x] v-else
-- [ ] v-else-if
+- [x] v-else-if
+- [x] v-bind
+- [x] v-on
+- [x] class
+- [x] style
+- [x] filter
+- [ ] v-once
+- [ ] v-pre
+- [ ] v-cloak
 - [ ] 动态参数
 - [ ] 修饰符
-- [ ] v-bind（可用简写形式替换）
-- [ ] v-on（可用简写形式替换）
-- [ ] 生命周期、计算属性、属性侦听（请使用cube提供的开发方式）
+- [ ] 生命周期（请使用cube提供的开发方式）
+- [ ] 计算属性
+- [ ] 属性侦听
 - [ ] 组件
 - [ ] 动画
-- [x] 过滤器
-
 
 建议
 ------------
