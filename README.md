@@ -18,8 +18,9 @@ vue2cube
 
 使用
 ------------
-可在cube根目录下，创建`run.js`，通过require方式引入vue2cube。
+首先通过cube开发者工具初始化项目，在cube根目录下，创建`run.js`，通过require方式引入vue2cube。
 例如：
+
 ```js
 const VueCube = require('vue2cube');
 
@@ -51,21 +52,21 @@ vueCube.auto();
 #### TypesHandler
 
 - `template <function>` 可覆盖默认tpl解析操作。
-```
+```js
   template: function({ content }) {
     const templateParser = new TemplateParser();
     return templateParser.parse(content);
   }
 ```
 - `script <function>` 可覆盖默认js解析操作。
-```
+```js
   script: function({ content }) {
     const scriptParser = new ScriptParser();
     return scriptParser.parse(content);
   },
 ```
 - `styles <function>` 可覆盖默认css解析操作。
-```
+```js
   styles: function(styles) {
 	return styles.reduce((total, content) => {
 	    const styleParser = new StyleParser();
@@ -77,7 +78,7 @@ vueCube.auto();
 #### StyleParser
 
 目前只支持less预处理器，如果想用其他预处理器，可通过styleParser进行解析。
-```
+```js
 var sass = require('node-sass');
 const vueCube = new VueCube({
   entry: './cube.vue',
@@ -116,18 +117,42 @@ const vueCube = new VueCube({
 
 #### 组合使用：
 
-```
+```js
 vueCube.build().then((res) => {
   vueCube.output(res).watching();
   vueCube.run();
 })
 ```
 
+说明
+------------
+因为vue与cube的实现及使用存在一些差异，该工具已最大程度将其抹平，以下列出了相关差异，更好的使开发者理解和融入其中。
+
+#### 插值
+- [x] `<span>Message: {{ msg }}</span>`
+
+#### 指令
+- [x] v-show
+- [x] v-model
+- [x] v-for
+- [x] v-if
+- [x] v-else
+- [ ] v-else-if
+- [ ] 动态参数
+- [ ] 修饰符
+- [ ] v-bind（可用简写形式替换）
+- [ ] v-on（可用简写形式替换）
+- [ ] 生命周期、计算属性、属性侦听（请使用cube提供的开发方式）
+- [ ] 组件
+- [ ] 动画
+- [x] 过滤器
+
+
+建议
+------------
+- 不建议在用了cube较独立的模板特性的项目下使用
 
 示例
 ------------
 见`example`目录。
 
-贡献
-------------
-无
