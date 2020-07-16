@@ -1,17 +1,34 @@
 
 <template>
   <div class="box">
-    <p>{{name}}</p>
-    <input v-model="name" />
+    <p>{{ message }}</p>
+    <input v-model="message">
+    <button v-on:click="reverseMessage($event)">反转消息</button>
+    <button @click="reverseMessage($event)">反转消息</button>
   </div>
 </template>
 
 <script>
 export default {
-  data: {
-    name: 'vue-cube'
+  data() {
+    return {
+      message: 'vue-cube'
+    }
   },
-  onReady() {}
+  created () {
+    console.log('created')
+  },
+  mounted () {
+    console.log('mounted')
+  },
+  destroyed () {
+    console.log('destroyed')
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
 };
 </script>
 

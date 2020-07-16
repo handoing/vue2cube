@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/handoing/vue2cube#readme",
   "dependencies": {
+    "ast-types": "^0.13.3",
     "chokidar": "^3.4.0",
+    "escodegen": "^1.14.3",
+    "espree": "^7.1.0",
+    "estraverse": "^5.1.0",
     "fs-extra": "^9.0.1",
     "htmlparser2": "^4.1.0",
     "less": "^3.12.0",

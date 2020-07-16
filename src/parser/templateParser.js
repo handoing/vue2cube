@@ -186,7 +186,7 @@ class TemplateParser {
     if (matchOn) {
       const name = attrName.slice(matchOn[1].length)
       const value = node.attribs[attrName];
-      attrs[`on-${name}`] = `{{${value}}}`
+      attrs[`on-${name}`] = `{{this.${value}}}`
       return;
     }
 
