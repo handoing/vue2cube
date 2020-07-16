@@ -1,6 +1,11 @@
 class ScriptParser {
-  constructor() {}
+  constructor({ parser }) {
+    this.parser = parser
+  }
   parse(content) {
+    if (this.parser) {
+      return this.parser(content)
+    }
     return content
   }
 }

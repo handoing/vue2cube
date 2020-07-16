@@ -6,11 +6,15 @@ const {
 
 const typesHandler = {
   template: function({ content }) {
-    const templateParser = new TemplateParser();
+    const templateParser = new TemplateParser({
+      parser: this.options.templateParser,
+    });
     return templateParser.parse(content);
   },
   script: function({ content }) {
-    const scriptParser = new ScriptParser();
+    const scriptParser = new ScriptParser({
+      parser: this.options.scriptParser,
+    });
     return scriptParser.parse(content);
   },
   styles: function(styles) {

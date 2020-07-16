@@ -6,6 +6,8 @@ function getOptions(options) {
     compiler,
     typesHandler,
     vueFileExtensions: [],
+    templateParser: null,
+    scriptParser: null,
     styleParser: null
   }, options)
 }

@@ -98,8 +98,13 @@ const attrTransformMap = {
 }
 
 class TemplateParser {
-  constructor() {}
+  constructor({ parser }) {
+    this.parser = parser
+  }
   parse(content) {
+    if (this.parser) {
+      return this.parser(content)
+    }
     return this.parseTemplate(content).then((ast) => {
       const transformedAST = this.templateTransform(ast)
       return this.astToString(transformedAST)
