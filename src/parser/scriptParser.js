@@ -46,7 +46,7 @@ class ScriptParser {
   }
   parse(content) {
     if (this.parser) {
-      return this.parser(content)
+      content = this.parser(content)
     }
 
     const ast = espree.parse(content, {
