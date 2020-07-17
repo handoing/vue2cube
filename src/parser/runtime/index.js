@@ -1,3 +1,4 @@
+/* eslint-disable */
 function $__deepClone(obj) {
   var key, i, result;
   if (typeof obj !== 'object' || !obj) {

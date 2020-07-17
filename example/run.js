@@ -5,9 +5,8 @@ const vueCube = new VueCube({
   output: './src'
 })
 
-vueCube.auto();
+// vueCube.auto();
 
-// vueCube.build().then((res) => {
-//   vueCube.output(res).watching();
-//   vueCube.run();
-// })
+vueCube.build().then((res) => {
+  vueCube.output(res)
+})

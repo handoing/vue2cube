@@ -7,6 +7,11 @@ const {
   builders
 } = require('ast-types');
 
+const MemoryFS = require("memory-fs");
+const webpack = require('webpack');
+const _fs = new MemoryFS();
+_fs.mkdirpSync(__dirname);
+
 const ExportDefaultMap = {
   data(node) {
     if (node.value.type === 'FunctionExpression') {
@@ -54,12 +59,59 @@ class ScriptParser {
       sourceType: "module",
     });
     this.traverse(ast)
-    return this.generate(ast)
+    return this.loadWebpack(escodegen.generate(ast));
+  }
+  loadWebpack(content) {
+    const MemoryRuntimePath = path.resolve(__dirname, './runtime.js');
+    const runtimePath = path.resolve(__dirname, './runtime/index.js');
+    const entryPath = path.resolve(__dirname, './entry.js');
+    const distPath = path.resolve(__dirname, 'dist');
+    const distFilename = '[name].bundle.js';
+    const runtimeDistFilename = 'runtime.bundle.js';
+    const cubeDistFilename = 'cube.bundle.js';
+    const vueLoaderPath = path.resolve(__dirname, 'loader', './vue-loader.js');
+    _fs.writeFileSync(MemoryRuntimePath, fs.readFileSync(runtimePath).toString());
+    _fs.writeFileSync(entryPath, content);
+    return new Promise((resolve, reject) => {
+      const compiler = webpack({
+        mode: 'development',
+        entry: {
+          runtime: MemoryRuntimePath,
+          cube: entryPath
+        },
+        output: {
+          path: distPath,
+          filename: distFilename
+        },
+        module: {
+          rules: [
+            {
+              test: /\.vue$/,
+              use: { loader: vueLoaderPath }
+            }
+          ]
+        }
+      });
+      compiler.inputFileSystem = _fs;
+      compiler.outputFileSystem = _fs;
+      compiler.run((error, stats) => {
+        if (error) return reject(error);
+        // const runtimeContent = _fs.readFileSync(path.resolve(distPath, runtimeDistFilename));
+        const content = _fs.readFileSync(path.resolve(distPath, cubeDistFilename));
+        resolve(this.rejectRuntime(content.toString()));
+        // resolve(content);
+      });
+    })
   }
   generate(ast) {
     const runtimePath = path.resolve(__dirname, './runtime/index.js');
     const runtime = fs.readFileSync(runtimePath, 'utf-8');
     return `${runtime}\n\n${escodegen.generate(ast)}`
+  }
+  rejectRuntime(content) {
+    const runtimePath = path.resolve(__dirname, './runtime/index.js');
+    const runtime = fs.readFileSync(runtimePath, 'utf-8');
+    return `${runtime}\n\n${content}`
   }
   traverse(ast) {
     const self = this;
