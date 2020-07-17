@@ -145,12 +145,12 @@ vueCube.build().then((res) => {
 - [x] class
 - [x] style
 - [x] filter
+- [x] 生命周期（只可使用created、mounted、destroyed，其他生命周期请参考cube）
 - [ ] v-once
 - [ ] v-pre
 - [ ] v-cloak
 - [ ] 动态参数
 - [ ] 修饰符
-- [ ] 生命周期（请使用cube提供的开发方式）
 - [ ] 计算属性
 - [ ] 属性侦听
 - [ ] 组件
@@ -158,7 +158,7 @@ vueCube.build().then((res) => {
 
 建议
 ------------
-- 不建议在用了cube较独立的模板特性的项目下使用
+- 看示例
 
 示例
 ------------

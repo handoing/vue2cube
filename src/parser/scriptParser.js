@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs-extra');
 const espree = require("espree");
 const estraverse = require('estraverse');
 const escodegen = require('escodegen');
@@ -52,27 +54,40 @@ class ScriptParser {
       sourceType: "module",
     });
     this.traverse(ast)
-    return escodegen.generate(ast)
+    return this.generate(ast)
+  }
+  generate(ast) {
+    const runtimePath = path.resolve(__dirname, './runtime/index.js');
+    const runtime = fs.readFileSync(runtimePath, 'utf-8');
+    return `${runtime}\n\n${escodegen.generate(ast)}`
   }
   traverse(ast) {
     const self = this;
     estraverse.traverse(ast, {
       enter(node) {
         if (node.type === 'ExportDefaultDeclaration' && node.declaration.type === 'ObjectExpression') {
-          node.declaration.properties = self.exportDefaultPropsHandle(node.declaration.properties)
+          node.declaration = builders.callExpression(
+            builders.identifier("$__inject"),
+            [ node.declaration ]
+          );
           return node
         }
 
-        if (
-          node.type === 'ExpressionStatement' &&
-          node.expression.type === 'AssignmentExpression' &&
-          node.expression.left.type === 'MemberExpression'
-        ) {
-          if (node.expression.left.object.type === 'ThisExpression') {
-            node.expression = self.expressSetDataHandle(node.expression)
-            return node;
-          }
-        }
+        // if (node.type === 'ExportDefaultDeclaration' && node.declaration.type === 'ObjectExpression') {
+        //   node.declaration.properties = self.exportDefaultPropsHandle(node.declaration.properties)
+        //   return node
+        // }
+
+        // if (
+        //   node.type === 'ExpressionStatement' &&
+        //   node.expression.type === 'AssignmentExpression' &&
+        //   node.expression.left.type === 'MemberExpression'
+        // ) {
+        //   if (node.expression.left.object.type === 'ThisExpression') {
+        //     node.expression = self.expressSetDataHandle(node.expression)
+        //     return node;
+        //   }
+        // }
       },
       leave(node) {}
     });

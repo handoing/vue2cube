@@ -89,23 +89,3 @@ function $__inject(vueContext) {
 
   return cube;
 }
-
-export default $__inject({
-    data() {
-        return { message: 'vue-cube' };
-    },
-    created() {
-        console.log('created');
-    },
-    mounted() {
-        console.log('mounted');
-    },
-    destroyed() {
-        console.log('destroyed');
-    },
-    methods: {
-        reverseMessage: function () {
-            this.message = this.message.split('').reverse().join('');
-        }
-    }
-});
