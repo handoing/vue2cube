@@ -1,96 +1,4 @@
-/* eslint-disable */
-function $__deepClone(obj) {
-  var key, i, result;
-  if (typeof obj !== 'object' || !obj) {
-    return obj;
-  }
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    result = [];
-    i = obj.length;
-    while ( i-- ) {
-      if (obj.hasOwnProperty(i)) {
-        if (typeof obj[i] === 'object') {
-          result[i] = $__deepClone(obj[i]);
-        } else {
-          result[i] = obj[i];
-        }
-      }
-    }
-  } else {
-    result = {};
-    for (key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if (typeof obj[ key ] === 'object') {
-          result[key] = $__deepClone(obj[key]);
-        }else {
-          result[key] = obj[key];
-        }
-      }
-    }
-  }
-  return result;
-}
-
-function $__inject(vueContext) {
-  let cubeDataDirty = false;
-  let cubeData = $__deepClone(vueContext.data.call(vueContext.methods))
-  const cube = { data: cubeData };
-  const LifecycleHooksMap = {
-    'created': 'onLoad',
-    'mounted': 'onReady',
-    'destroyed': 'onUnload'
-  }
-
-  function observe(data) {
-    if (!data || typeof data !== 'object') {
-      return;
-    }
-    Object.keys(data).forEach(function(key) {
-      defineReactive(data, key, data[key]);
-    });
-  };
-
-  function defineReactive(data, key, val) {
-    observe(val);
-    Object.defineProperty(data, key, {
-      enumerable: true,
-      configurable: false,
-      get: function() {
-        cubeDataDirty = false
-        return val;
-      },
-      set: function(newVal) {
-        if (val === newVal) return;
-        cubeDataDirty = true;
-        val = newVal;
-      }
-    });
-  }
-
-  observe(cubeData);
-
-  Object.keys(vueContext).map(method => {
-    if (['data', 'methods'].indexOf(method) !== -1) {
-      return
-    }
-    cube[LifecycleHooksMap[method] ? LifecycleHooksMap[method] : method] = vueContext[method].bind(cubeData)
-  })
-
-  Object.keys(vueContext.methods).map(method => {
-    cubeData[method] = vueContext.methods[method]
-    cube[method] = function() {
-      vueContext.methods[method].call(cubeData, ...arguments)
-      if (cubeDataDirty) {
-        this.setTimeout(() => {
-          this.setData(cubeData);
-        }, 0)
-      }
-    }
-  })
-
-  return cube;
-}
-
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -174,20 +82,89 @@ function $__inject(vueContext) {
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../src/parser/entry.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/cube.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../src/parser/entry.js":
-/*!******************************!*\
-  !*** ../src/parser/entry.js ***!
-  \******************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/button.vue":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/components/button.vue ***!
+  \*****************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/button.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/text.vue":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/components/text.vue ***!
+  \***************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/text.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/cube.vue":
+/*!****************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/cube.vue ***!
+  \****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/cube.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+
+/***/ }),
+
+/***/ "./src/cube.js":
+/*!*********************!*\
+  !*** ./src/cube.js ***!
+  \*********************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ($__inject({\n    data() {\n        return { message: 'vue-cube' };\n    },\n    created() {\n        console.log('created');\n    },\n    mounted() {\n        console.log('mounted');\n    },\n    destroyed() {\n        console.log('destroyed');\n    },\n    methods: {\n        reverseMessage: function () {\n            this.message = this.message.split('').reverse().join('');\n        }\n    }\n}));\n\n//# sourceURL=webpack:///../src/parser/entry.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Users_wangjianbing_project_vue2cube_example_vue_cube_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vue/cube.vue */ \"./vue/cube.vue\");\n\n        \n        function $__deepClone(obj) {\n  var key, i, result;\n  if (typeof obj !== 'object' || !obj) {\n    return obj;\n  }\n  if (Object.prototype.toString.call(obj) === '[object Array]') {\n    result = [];\n    i = obj.length;\n    while ( i-- ) {\n      if (obj.hasOwnProperty(i)) {\n        if (typeof obj[i] === 'object') {\n          result[i] = $__deepClone(obj[i]);\n        } else {\n          result[i] = obj[i];\n        }\n      }\n    }\n  } else {\n    result = {};\n    for (key in obj) {\n      if (obj.hasOwnProperty(key)) {\n        if (typeof obj[ key ] === 'object') {\n          result[key] = $__deepClone(obj[key]);\n        }else {\n          result[key] = obj[key];\n        }\n      }\n    }\n  }\n  return result;\n}\n\nfunction $__isFunction(obj) {\n  return Object.prototype.toString.call(obj) === \"[object Function]\"\n}\n\nfunction $__inject(vueContext) {\n  let cubeDataDirty = false;\n  let cubeData = $__deepClone($__isFunction(vueContext.data) ? vueContext.data.call(vueContext.methods) : vueContext.data)\n  const cube = { data: cubeData };\n  const LifecycleHooksMap = {\n    'created': 'onLoad',\n    'mounted': 'onReady',\n    'destroyed': 'onUnload'\n  }\n\n  function observe(data) {\n    if (!data || typeof data !== 'object') {\n      return;\n    }\n    Object.keys(data).forEach(function(key) {\n      defineReactive(data, key, data[key]);\n    });\n  };\n\n  function defineReactive(data, key, val) {\n    observe(val);\n    Object.defineProperty(data, key, {\n      enumerable: true,\n      configurable: false,\n      get: function() {\n        cubeDataDirty = false\n        return val;\n      },\n      set: function(newVal) {\n        if (val === newVal) return;\n        cubeDataDirty = true;\n        val = newVal;\n      }\n    });\n  }\n\n  observe(cubeData);\n\n  Object.keys(vueContext).map(method => {\n    if (['data', 'methods', 'components', 'template'].indexOf(method) !== -1) {\n      return\n    }\n    if (['created'].indexOf(method) !== -1) {\n      cube[LifecycleHooksMap[method]] = function() {\n        cubeData.$cube = this;\n        vueContext[method].bind(cubeData)\n      }\n      return\n    }\n    cube[LifecycleHooksMap[method] ? LifecycleHooksMap[method] : method] = vueContext[method].bind(cubeData)\n  })\n\n  vueContext.methods && Object.keys(vueContext.methods).map(method => {\n    cubeData[method] = vueContext.methods[method]\n    cube[method] = function() {\n      vueContext.methods[method].call(cubeData, ...arguments)\n      if (cubeDataDirty) {\n        this.setTimeout(() => {\n          this.setData(cubeData);\n        }, 0)\n      }\n    }\n  })\n\n  if (vueContext.components && vueContext.components.length > 0) {\n    cube.components = vueContext.components.map((component) => {\n      let compData = $__deepClone($__isFunction(component.data) ? component.data.call(component.methods) : component.data)\n      const comp = {\n        name: component.name,\n        template: component.template,\n        data: compData\n      };\n      observe(compData);\n      Object.keys(component).map((method) => {\n        if (['name', 'data', 'methods', 'components', 'template'].indexOf(method) !== -1) {\n          return\n        }\n        if (['created'].indexOf(method) !== -1) {\n          comp[LifecycleHooksMap[method]] = function() {\n            compData.$cube = this;\n            component[method].bind(compData)\n          }\n          return\n        }\n        comp[LifecycleHooksMap[method] ? LifecycleHooksMap[method] : method] = component[method].bind(compData)\n      })\n\n      component.methods && Object.keys(component.methods).map(method => {\n        compData[method] = component.methods[method]\n        comp[method] = function() {\n          component.methods[method].call(compData, ...arguments)\n          if (cubeDataDirty) {\n            this.setTimeout(() => {\n              this.setData(compData);\n            }, 0)\n          }\n        }\n      })\n\n      return comp;\n\n    })\n  }\n\n  return cube;\n}\n        /* harmony default export */ __webpack_exports__[\"default\"] = ($__inject(_Users_wangjianbing_project_vue2cube_example_vue_cube_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]));\n      \n\n//# sourceURL=webpack:///./src/cube.js?");
+
+/***/ }),
+
+/***/ "./vue/components/button.vue":
+/*!***********************************!*\
+  !*** ./vue/components/button.vue ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist!../../../lib/webpack/loader/select-loader.js!./button.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/button.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Button',\n    data: {},\n    created() {\n        console.log('Button created');\n    },\n    mounted() {\n        console.log('Button mounted');\n    },\n    template: '\\n<span class=\"button\">{{ text }}</span>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/button.vue?");
+
+/***/ }),
+
+/***/ "./vue/components/text.vue":
+/*!*********************************!*\
+  !*** ./vue/components/text.vue ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist!../../../lib/webpack/loader/select-loader.js!./text.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/text.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Text',\n    data() {\n        return { content: '\\uD83D\\uDE06\\uD83D\\uDE06\\uD83D\\uDE06' };\n    },\n    template: '\\n<h1>{{ title }}-{{ content }}</h1>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/text.vue?");
+
+/***/ }),
+
+/***/ "./vue/cube.vue":
+/*!**********************!*\
+  !*** ./vue/cube.vue ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_button_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/button.vue */ \"./vue/components/button.vue\");\n/* harmony import */ var _components_text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/text.vue */ \"./vue/components/text.vue\");\n__webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist!../../lib/webpack/loader/select-loader.js!./cube.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/cube.vue\")\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    data() {\n        return { message: 'vue-cube' };\n    },\n    components: [\n        _components_button_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n        _components_text_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n    ],\n    created() {\n        console.log('created');\n    },\n    mounted() {\n        console.log('mounted');\n    },\n    destroyed() {\n        console.log('destroyed');\n    },\n    methods: {\n        reverseMessage: function () {\n            console.log(this.$cube.getCubeInfo());\n            this.message = this.message.split('').reverse().join('');\n        }\n    },\n    template: '\\n<div class=\"box\">\\n  <Text title=\"{{ message }}\"></Text>\\n  <input c-model=\"{{message}}\">\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n</div>\\n'\n});\n\n//# sourceURL=webpack:///./vue/cube.vue?");
 
 /***/ })
 

@@ -1,7 +1,7 @@
 
 <div class="box">
-  <p>{{ message }}</p>
+  <Text title="{{ message }}"></Text>
   <input c-model="{{message}}">
-  <button on-click="{{this.reverseMessage($event)}}">反转消息</button>
-  <button on-click="{{this.reverseMessage($event)}}">反转消息</button>
+  <span on-click="{{this.reverseMessage($event)}}"><Button text="反转消息"></Button></span>
+  <span on-click="{{this.reverseMessage($event)}}"><Button text="反转消息"></Button></span>
 </div>

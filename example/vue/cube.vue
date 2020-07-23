@@ -1,20 +1,26 @@
 
 <template>
   <div class="box">
-    <p>{{ message }}</p>
+    <Text title="{{ message }}" ></Text>
     <input v-model="message">
-    <button v-on:click="reverseMessage($event)">反转消息</button>
-    <button @click="reverseMessage($event)">反转消息</button>
+    <span v-on:click="reverseMessage($event)"><Button text="反转消息"></Button></span>
+    <span @click="reverseMessage($event)"><Button text="反转消息"></Button></span>
   </div>
 </template>
 
 <script>
+import Button from './components/button.vue';
+import Text from './components/text.vue';
 export default {
   data() {
     return {
       message: 'vue-cube'
     }
   },
+  components: [
+    Button,
+    Text
+  ],
   created () {
     console.log('created')
   },
@@ -26,19 +32,15 @@ export default {
   },
   methods: {
     reverseMessage: function () {
+      console.log(this.$cube.getCubeInfo());
       this.message = this.message.split('').reverse().join('')
     }
   }
 };
 </script>
 
-<style lang="less">
-@nice-blue: #00c13c;
+<style>
 .box {
   text-align: center;
-  p {
-    color: @nice-blue;
-    font-size: 20px;
-  }
 }
 </style>

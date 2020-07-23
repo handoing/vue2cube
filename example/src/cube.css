@@ -1,7 +1,21 @@
+
 .box {
   text-align: center;
 }
-.box p {
-  color: #00c13c;
-  font-size: 20px;
+
+.button {
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+  background-color: #00c13c;
+  border-radius: 2px;
+  text-decoration: none;
+  padding: 4px 6px;
+  cursor: pointer;
 }
+
+
+h1 {
+  color: #3eaf0e;
+}
+

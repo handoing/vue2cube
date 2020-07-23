@@ -1,12 +1,12 @@
-const VueCube = require('../src');
+const VueCube = require('../lib');
 
 const vueCube = new VueCube({
-  entry: './cube.vue',
+  entryDir: './vue',
   output: './src'
 })
 
-// vueCube.auto();
+vueCube.auto();
 
-vueCube.build().then((res) => {
-  vueCube.output(res)
-})
+// vueCube.build().then(({ error }) => {
+//   vueCube.run().watching();
+// })
