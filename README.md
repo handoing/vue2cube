@@ -7,7 +7,7 @@ vue2cube
 
 - 将tpl、css、js文件合为vue文件
 - 可配合编辑器vue插件进行代码高亮或提示
-- 可使用css预处理器
+- 可配置css预处理器
 
 
 安装
@@ -25,7 +25,7 @@ vue2cube
 const VueCube = require('vue2cube');
 
 const vueCube = new VueCube({
-  entry: './cube.vue', // entry指定的文件存在，使用该文件，不存在时，会生成名为cube.vue的默认模板
+  entryDir: './vue', // entry指定的文件存在，使用该文件，不存在时，会生成名为./vue/cube.vue的默认模板
   output: './src'
 })
 
@@ -38,42 +38,17 @@ vueCube.auto();
 ------------
 #### VueCube({ entry, output[, options] })
 
-- `entry <string>` vue入口文件路径。
+- `entryDir <string>` vue入口文件路径。
 - `output <string>` 输出文件路径（一般直接输出为`cube_root/src`）
 - `options <object>` 详见Options
 
 #### Options
 
 - `compiler <object>` 自定义vue文件解析工具，详见[vue-template-compiler](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler "vue-template-compiler")。
-- `typesHandler <object>` 可用来操作template、script、styles
 - `vueFileExtension <array>` 指定可解析的vue文件后缀
-- `styleParser <function>` 自定义方法解析style，详见`StyleParser`
-
-#### TypesHandler
-
-- `template <function>` 可覆盖默认tpl解析操作。
-```js
-  template: function({ content }) {
-    const templateParser = new TemplateParser();
-    return templateParser.parse(content);
-  }
-```
-- `script <function>` 可覆盖默认js解析操作。
-```js
-  script: function({ content }) {
-    const scriptParser = new ScriptParser();
-    return scriptParser.parse(content);
-  },
-```
-- `styles <function>` 可覆盖默认css解析操作。
-```js
-  styles: function(styles) {
-	return styles.reduce((total, content) => {
-	    const styleParser = new StyleParser();
-        return total += styleParser.parse(content);
-    }, '');
-  }
-```
+- `templateParser <function>` 自定义方法解析template（被废弃）
+- `scriptParser <function>` 自定义方法解析script（被废弃）
+- `styleParser <function>` 自定义方法解析style（被废弃）
 
 #### StyleParser
 
@@ -101,26 +76,25 @@ const vueCube = new VueCube({
 
 #### build()
 
-只进行解析，返回promise，result为数组，元素分别为tpl、js、styles解析后的代码。
+只进行解析，返回promise，result为数组，元素分别为tpl、js、styles解析后的代码。（被废弃）
 
 #### output()
 
-输出cube.tpl、cube.js、cube.css到指定目录。
-
-#### watching()
-
-监听vue文件变化，只可在output返回的对象上调用。
+输出cube.tpl、cube.js、cube.css到指定目录。（被废弃）
 
 #### run()
 
 调用cubetool run。
 
+#### watching()
+
+监听vue文件变化，只可在run返回的对象上调用。
+
 #### 组合使用：
 
 ```js
-vueCube.build().then((res) => {
-  vueCube.output(res).watching();
-  vueCube.run();
+vueCube.build().then(({ error }) => {
+  vueCube.run().watching();
 })
 ```
 
@@ -146,6 +120,7 @@ vueCube.build().then((res) => {
 - [x] style
 - [x] filter
 - [x] 生命周期（只可使用created、mounted、destroyed，其他生命周期请参考cube）
+- [x] 组件
 - [ ] v-once
 - [ ] v-pre
 - [ ] v-cloak
@@ -153,7 +128,6 @@ vueCube.build().then((res) => {
 - [ ] 修饰符
 - [ ] 计算属性
 - [ ] 属性侦听
-- [ ] 组件
 - [ ] 动画
 
 建议
