@@ -92,13 +92,12 @@ const attrTransformMap = {
         type: 'text',
         data: `{{${value}}}`
       })
-      console.log(node)
     }
   }
 }
 
 class TemplateParser {
-  constructor({ parser }) {
+  constructor({ parser } = {}) {
     this.parser = parser
   }
   parse(content) {
@@ -116,7 +115,9 @@ class TemplateParser {
         if (error) return reject(error);
         resolve(dom);
       });
-      const parser = new Parser(handler);
+      const parser = new Parser(handler, {
+        lowerCaseTags: false
+      });
       parser.write(text);
       parser.end();
     });

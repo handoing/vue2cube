@@ -1,4 +1,4 @@
-const VueCube = require('../lib');
+const VueCube = require('../src');
 
 const vueCube = new VueCube({
   entryDir: './vue',

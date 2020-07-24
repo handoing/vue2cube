@@ -1,99 +1,105 @@
 const path = require('path');
 const fs = require('fs-extra');
 const { spawn } = require('child_process');
-const { getOptions } = require('./options');
-const {
-  ENTRY,
-  OUTPUT,
-  VUE_TEMPLATE,
-  TYPE_TO_FILENAME
-} = require('./config');
+const vueCompiler = require('vue-template-compiler');
 const Watch = require('./watch');
+const { getOptions } = require('./options');
+const { TemplateParser } = require('./parser');
+const { webpackPromise } = require('./webpack');
+const {
+  ENTRY_DIR,
+  ENTRY_FILE_NAME,
+  OUTPUT,
+  VUE_TEMPLATE
+} = require('./config');
+
+const cwdPath = process.cwd();
 
 class VueCube {
   constructor({
-    entry = ENTRY,
+    entryDir = ENTRY_DIR,
+    entryFileName = ENTRY_FILE_NAME,
     output = OUTPUT,
     options = {}
   }) {
-    this.entry = entry;
+    this.entryDir = entryDir;
+    this.entry = path.join(entryDir, entryFileName);
     this.outputPath = output;
     this.options = getOptions(options);
-
-    this.compiler = this.options.compiler;
-    this.typesHandler = this.options.typesHandler;
-    this.vueFileExtensions = this.options.vueFileExtensions;
   }
 
   auto() {
     this.build().then((res) => {
-      this.output(res).watching();
-      this.run();
+      this.run().watching();
     })
   }
 
   build() {
     const { entry } = this;
     if (!this._isVueFile(entry)) {
-      return Promise.reject(new Error('Not .vue file'));
+      return Promise.reject(new Error('The entry is not a Vue file.'));
     }
-    return this._convert(entry)
+    return this._readEntryFile(entry).then((entryCode) => {
+      const outputPath = this.outputPath;
+      const runtimePath = path.resolve(__dirname, './runtime/index.js');
+      const entryPath = path.resolve(cwdPath, outputPath, './cube.js');
+      const runtimeInject = fs.readFileSync(runtimePath);
+
+      fs.writeFileSync(entryPath, `
+        import cube from '${path.resolve(cwdPath, entry)}'
+        ${runtimeInject}
+        export default $__inject(cube);
+      `)
+
+      return webpackPromise(entryPath, outputPath).then(() => {
+        const output = vueCompiler.parseComponent(entryCode);
+        return this._outputTemplate(output.template.content);
+      })
+    })
   }
 
-  output(result) {
-    result.forEach(({ type, data }) => {
-      const distPath = path.resolve(this.outputPath, TYPE_TO_FILENAME[type]);
-      fs.outputFileSync(distPath, data)
-    })
+
+  run() {
+    spawn('cubetool', ['run'], { stdio: 'inherit' });
     return new Watch({
-      path: this.entry,
+      path: this.entryDir,
       context: this
     });
   }
 
-  run() {
-    return spawn('cubetool', ['run'], { stdio: 'inherit' });
-  }
-
   rebuild() {
-    this.build().then((res) => this.output(res))
+    this.build().then(() => {})
   }
 
-  _isVueFile(filePath) {
-    return this.vueFileExtensions.indexOf(path.extname(filePath)) != -1 || /\.vue$/.test(filePath);
+  _outputTemplate(template) {
+    const templateParser = new TemplateParser();
+    return templateParser.parse(template).then((result) => {
+      fs.writeFileSync(path.resolve(this.outputPath, './cube.tpl'), result)
+      return {
+        error: null
+      };
+    })
   }
 
-  _convert(filePath) {
+  _readEntryFile(filePath) {
     return new Promise((resolve, reject) => {
       if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(filePath, VUE_TEMPLATE)
+        return fs.ensureFile(filePath).then(() => {
+          fs.writeFileSync(filePath, VUE_TEMPLATE)
+          resolve(VUE_TEMPLATE)
+        });
       }
-      fs.readFile(filePath, 'utf-8', (error, code) => {
+      return fs.readFile(filePath, 'utf-8', (error, code) => {
         if (error) return reject(error);
-        this._fileHandle(code, filePath, resolve);
+        resolve(code)
       });
     })
   }
 
-  _fileHandle(code, filePath, callback) {
-    const output = this.compiler.parseComponent(code);
-    const typesHandler = this.typesHandler;
-    const typeList = Object.keys(output);
-    return Promise.all(
-      typeList.map(typeName => {
-        if (typeName in typesHandler) {
-          return typesHandler[typeName].call(this, output[typeName])
-        }
-      }).filter(item => item)
-    ).then((res) => {
-      callback(res.map((code, index) => {
-        return {
-          type: typeList[index],
-          data: code
-        }
-      }))
-    })
+  _isVueFile(filePath) {
+    return this.options.vueFileExtensions.indexOf(path.extname(filePath)) != -1 || /\.vue$/.test(filePath);
   }
+
 }
 
 module.exports = VueCube;
