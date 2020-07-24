@@ -29,8 +29,8 @@ function getRequire(loader, filePath) {
   const loaderPath = loaderUtils.stringifyRequest(
     loader,
     '!!' +
-    `${path.resolve(process.cwd(), './node_modules/mini-css-extract-plugin/dist/loader.js')}!` +
-    `${path.resolve(process.cwd(), 'node_modules/css-loader/dist/index.js')}!` +
+    `${path.resolve(__dirname, '../../../', './node_modules/mini-css-extract-plugin/dist/loader.js')}!` +
+    `${path.resolve(__dirname, '../../../', './node_modules/css-loader/dist/cjs.js')}!` +
     `${path.resolve(__dirname, './select-loader.js')}!${filePath}`
   );
   return 'require(' + loaderPath + ')\n'

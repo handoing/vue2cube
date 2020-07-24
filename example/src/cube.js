@@ -87,36 +87,36 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/button.vue":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/components/button.vue ***!
-  \*****************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/button.vue":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/button.vue ***!
+  \************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/button.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/button.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js");
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/text.vue":
-/*!***************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/components/text.vue ***!
-  \***************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/text.vue":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/text.vue ***!
+  \**********************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/text.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/components/text.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js");
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/cube.vue":
-/*!****************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js!./vue/cube.vue ***!
-  \****************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/cube.vue":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/cube.vue ***!
+  \***********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/cube.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist!../lib/webpack/loader/select-loader.js");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./vue/cube.vue?../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js");
 
 /***/ }),
 
@@ -140,7 +140,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Use
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist!../../../lib/webpack/loader/select-loader.js!./button.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/button.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Button',\n    data: {},\n    created() {\n        console.log('Button created');\n    },\n    mounted() {\n        console.log('Button mounted');\n    },\n    template: '\\n<span class=\"button\">{{ text }}</span>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/button.vue?");
+eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js!../../../src/webpack/loader/select-loader.js!./button.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/button.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Button',\n    data: {},\n    created() {\n        console.log('Button created');\n    },\n    mounted() {\n        console.log('Button mounted');\n    },\n    template: '\\n<span class=\"button\">{{ text }}</span>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/button.vue?");
 
 /***/ }),
 
@@ -152,7 +152,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../.
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist!../../../lib/webpack/loader/select-loader.js!./text.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/components/text.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Text',\n    data() {\n        return { content: '\\uD83D\\uDE06\\uD83D\\uDE06\\uD83D\\uDE06' };\n    },\n    template: '\\n<h1>{{ title }}-{{ content }}</h1>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/text.vue?");
+eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js!../../../src/webpack/loader/select-loader.js!./text.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/components/text.vue\")\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    name: 'Text',\n    data() {\n        return { content: '\\uD83D\\uDE06\\uD83D\\uDE06\\uD83D\\uDE06' };\n    },\n    template: '\\n<h1>{{ title }}-{{ content }}</h1>\\n'\n});\n\n//# sourceURL=webpack:///./vue/components/text.vue?");
 
 /***/ }),
 
@@ -164,7 +164,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n__webpack_require__(/*! !../.
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_button_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/button.vue */ \"./vue/components/button.vue\");\n/* harmony import */ var _components_text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/text.vue */ \"./vue/components/text.vue\");\n__webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist!../../lib/webpack/loader/select-loader.js!./cube.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/index.js!../lib/webpack/loader/select-loader.js!./vue/cube.vue\")\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    data() {\n        return { message: 'vue-cube' };\n    },\n    components: [\n        _components_button_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n        _components_text_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n    ],\n    created() {\n        console.log('created');\n    },\n    mounted() {\n        console.log('mounted');\n    },\n    destroyed() {\n        console.log('destroyed');\n    },\n    methods: {\n        reverseMessage: function () {\n            console.log(this.$cube.getCubeInfo());\n            this.message = this.message.split('').reverse().join('');\n        }\n    },\n    template: '\\n<div class=\"box\">\\n  <Text title=\"{{ message }}\"></Text>\\n  <input c-model=\"{{message}}\">\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n</div>\\n'\n});\n\n//# sourceURL=webpack:///./vue/cube.vue?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_button_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/button.vue */ \"./vue/components/button.vue\");\n/* harmony import */ var _components_text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/text.vue */ \"./vue/components/text.vue\");\n__webpack_require__(/*! !../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js!../../src/webpack/loader/select-loader.js!./cube.vue */ \"../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js!../src/webpack/loader/select-loader.js!./vue/cube.vue\")\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n    data() {\n        return { message: 'vue-cube' };\n    },\n    components: [\n        _components_button_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n        _components_text_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n    ],\n    created() {\n        console.log('created');\n    },\n    mounted() {\n        console.log('mounted');\n    },\n    destroyed() {\n        console.log('destroyed');\n    },\n    methods: {\n        reverseMessage: function () {\n            console.log(this.$cube.getCubeInfo());\n            this.message = this.message.split('').reverse().join('');\n        }\n    },\n    template: '\\n<div class=\"box\">\\n  <Text title=\"{{ message }}\"></Text>\\n  <input c-model=\"{{message}}\">\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n  <span on-click=\"{{this.reverseMessage($event)}}\"><Button text=\"反转消息\"></Button></span>\\n</div>\\n'\n});\n\n//# sourceURL=webpack:///./vue/cube.vue?");
 
 /***/ })
 
